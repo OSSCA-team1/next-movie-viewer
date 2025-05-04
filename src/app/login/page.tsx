@@ -1,5 +1,6 @@
 //로그인 페이지
 
+var a = 3;
 export default function LoginPage() {
   return (
     <div style={{ margin: "80px auto", textAlign: "center" }}>
