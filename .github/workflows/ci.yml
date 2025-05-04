@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 레포지토리 checkout
+      # 1. 레포지토리 checkout
       - name: Checkout code
         uses: actions/checkout@v4
 
