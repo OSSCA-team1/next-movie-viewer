@@ -1,6 +1,10 @@
 // 슬라이드 배너 컴포넌트
 'use client';
-import { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 interface Movie {
   id: number;
@@ -22,23 +26,53 @@ export default function BannerSlider({ movies }: BannerSliderProps) {
 
   if (!movies.length) return null;
 
-  const movie = movies[current];
-
   return (
     <div className="relative w-full h-[500px] overflow-hidden rounded-xl mb-8">
-      <img
-        src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-        alt={movie.title}
-        className="object-cover w-full h-full"
-      />
-      <div className="absolute left-0 top-0 w-full h-full bg-gradient-to-r from-black/80 to-transparent flex flex-col justify-center pl-16">
-        <span className="mb-2 inline-block bg-gray-800 text-white text-xs px-2 py-1 rounded">개별구매</span>
-        <h2 className="text-5xl font-bold text-white tracking-widest mb-4">{movie.title}</h2>
-        <p className="text-lg text-gray-200 max-w-xl">{movie.overview}</p>
-      </div>
-      <button onClick={prev} className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full w-10 h-10 flex items-center justify-center">&#60;</button>
-      <button onClick={next} className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full w-10 h-10 flex items-center justify-center">&#62;</button>
-      <div className="absolute right-6 bottom-4 text-white text-sm bg-black/40 rounded px-2 py-1">{current + 1} / {total}</div>
+      <Swiper
+        modules={[Autoplay, Navigation, Pagination]}
+        spaceBetween={0}
+        slidesPerView={1}
+        navigation={{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }}
+        pagination={{ clickable: true }}
+        autoplay={{
+          delay: 7000,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+        className="w-full h-full"
+      >
+        {movies.map((movie) => (
+          <SwiperSlide key={movie.id}>
+            <div className="relative w-full h-full">
+              <img
+                src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                alt={movie.title}
+                className="object-cover w-full h-full"
+              />
+              <div className="absolute left-0 top-0 w-full h-full bg-gradient-to-r from-black/80 to-transparent flex flex-col justify-center pl-16">
+                <span className="flex w-[50px] h-[25px] items-center justify-center mb-2 inline-block bg-gray-800 text-white text-xs px-2 py-5 rounded">
+                  개별구매
+                </span>
+                <h2 className="text-5xl font-bold text-white tracking-widest mb-4">
+                  {movie.title}
+                </h2>
+                <p className="text-lg text-gray-200 max-w-xl text-wrap text-md">{movie.overview}</p>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+        
+        {/* 커스텀 네비게이션 버튼 */}
+        <div className="swiper-button-prev !w-[50px] !h-[50px] !bg-black/40 hover:!bg-black/60 !rounded-full !text-white !text-2xl !font-bold after:!content-none flex items-center justify-center transition-colors">
+          &#60;
+        </div>
+        <div className="swiper-button-next !w-[50px] !h-[50px] !bg-black/40 hover:!bg-black/60 !rounded-full !text-white !text-2xl !font-bold after:!content-none flex items-center justify-center transition-colors">
+          &#62;
+        </div>
+      </Swiper>
     </div>
   );
 } 
