@@ -1,5 +1,6 @@
 // 슬라이드 배너 컴포넌트
 'use client';
+import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
