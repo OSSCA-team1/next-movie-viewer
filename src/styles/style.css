@@ -1,22 +1,22 @@
-:root{
-   --spacing: 1px;
-   --primary-color: #eb1e51;
+:root {
+  --spacing: 1px;
+  --primary-color: #eb1e51;
 }
 
-button{
-   cursor: pointer;
+button {
+  cursor: pointer;
 }
-input[type="text"]{
-   border: 0px none;
-   outline: none;
+input[type="text"] {
+  border: 0px none;
+  outline: none;
 }
 
-.container-1680{
-   width: 1680px;
-   max-width: 100%;
-   margin-left: auto;
-   margin-right: auto;
- }
- .leading-1em{
-   line-height: 1em;
- }
+.container-1680 {
+  width: 1680px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.leading-1em {
+  line-height: 1em;
+}
