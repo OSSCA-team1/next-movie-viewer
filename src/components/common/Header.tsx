@@ -10,7 +10,7 @@ export default function Header() {
             <div className="flex items-center gap-40">
                <Link
                   href="/"
-                  className="text-xl font-semibold"
+                  className="text-xl font-semibold text-white"
                >
                   OSSCA-Team1
                </Link>
@@ -19,8 +19,7 @@ export default function Header() {
                <Link href='/search' className="py-8">
                   <Image src={searchIcon} alt="search" width={24} height={24} />
                </Link>
-               <Link href='/login'>로그인</Link>
-               <Link href=''>회원가입</Link>
+               <Link href='/login' className="text-white">로그인</Link>
             </div>
          </nav>
       </header>
