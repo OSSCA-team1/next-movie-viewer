@@ -6,8 +6,8 @@ import MovieThumbnail from '../../../public/images/test_movie_thumbnail.jpg'
 import SearchBar from "./components/searchBar"
 
 export const metadata: Metadata = {
-   title: 'OSSCA-team1 - 검색 페이지'
-}
+  title: "OSSCA-team1 - 검색 페이지",
+};
 
 const getMoviesData = async () => {
    const apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YzhlMTE3MzBiODg2MTZhYzI5MDgwOThjMTMzNmE1NSIsIm5iZiI6MTczOTk0ODQ5OS40OTksInN1YiI6IjY3YjU4MWQzMjE1MjYzOGY1ZWUzYjE4MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fjQ0bMZHOX8s0YztcLQ0ZKfmxi3Lla-9O3y68nIYlwo'
@@ -25,12 +25,8 @@ export default async function SearchPage() {
 
    const moviesData = await getMoviesData();
 
-   const popularSearchCategory = [
-      { name: '전체' },
-      { name: '코미디' },
-      { name: '로맨스' },
-      { name: '액션' },
-   ]
+  return data;
+};
 
    const popularSearchContent = [
       { name: '진격의 거인 1기' },
