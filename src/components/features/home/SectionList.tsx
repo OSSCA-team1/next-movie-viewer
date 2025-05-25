@@ -22,10 +22,12 @@ export default function SectionList({ title, movies }: SectionListProps) {
               alt={movie.title}
               className="rounded-lg mb-2 w-full h-[260px] object-cover"
             />
-            <div className="text-sm text-center text-white truncate">{movie.title}</div>
+            <div className="text-sm text-center text-white truncate">
+              {movie.title}
+            </div>
           </div>
         ))}
       </div>
     </section>
   );
-} 
+}
