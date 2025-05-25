@@ -31,7 +31,6 @@ export default async function SearchPage() {
   const moviesData = await getMoviesData(); // 영화 목록 데이터 가져오기
   const popularMovies = await getPopularMovies(); // 인기 영화 목록 데이터 가져오기
 
-  console.log(popularMovies);
   return (
     <main className="min-h-screen bg-[#121212]">
       <div className="container-1680 py-40">
