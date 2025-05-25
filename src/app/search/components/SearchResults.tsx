@@ -26,7 +26,7 @@ export default function SearchResults({
 }) {
   const [filteredMovies, setFilteredMovies] = useState<MovieItem[]>([]);
 
-  const popularSearchContent = popularMovies.results.slice(0, 10);
+  const popularSearchContent = popularMovies?.results?.slice(0, 10);
 
   const handleSearchResults = (results: MovieItem[], searchText?: string) => {
     if (results.length === 0 && !searchText) {
