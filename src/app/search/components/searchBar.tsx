@@ -1,32 +1,60 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect, useRef } from "react";
+
+// 영화 또는 콘텐츠 아이템 인터페이스 정의
+interface MovieItem {
+  title: string;
+  poster_path: string;
+}
 
 interface SearchBarProps {
-  data: any;
-  onSearchResults: (results: any[], searchText?: string) => void;
+  data: MovieItem[];
+  onSearchResults: (results: MovieItem[], searchText?: string) => void;
 }
 
 export default function SearchBar({ data, onSearchResults }: SearchBarProps) {
   const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState<any[]>([]);
+  const [searchResult, setSearchResult] = useState<MovieItem[]>([]);
+  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    // 디바운싱 로직이 적용된 검색 함수
+    const performSearch = (searchText: string) => {
+      if (!searchText.trim()) {
+        setSearchResult([]);
+        onSearchResults([], "");
+        return;
+      }
+
+      const filteredResults = data.filter((item: MovieItem) =>
+        item.title.toLowerCase().includes(searchText.toLowerCase())
+      );
+
+      setSearchResult(filteredResults);
+      onSearchResults(filteredResults, searchText);
+    };
+
+    // 디바운스 - 300ms 동안 타이핑이 없으면 검색 실행
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+    }
+
+    debounceTimeoutRef.current = setTimeout(() => {
+      performSearch(search);
+    }, 300);
+
+    // 컴포넌트 언마운트 시 타이머 정리
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
+  }, [search, data]);
 
   const changeSearchText = (e: ChangeEvent<HTMLInputElement>) => {
     const searchText = e.target.value;
     setSearch(searchText);
-
-    if (!searchText.trim()) {
-      setSearchResult([]);
-      onSearchResults([], "");
-      return;
-    }
-
-    const filteredResults = data.filter((item: any) =>
-      item.title.toLowerCase().includes(searchText.toLowerCase())
-    );
-
-    setSearchResult(filteredResults);
-    onSearchResults(filteredResults, searchText);
   };
 
   return (
@@ -43,7 +71,7 @@ export default function SearchBar({ data, onSearchResults }: SearchBarProps) {
       </div>
       {searchResult.length > 0 && (
         <ul className="overflow-y-auto absolute top-70 left-0 flex flex-col gap-16 w-800 max-h-400 rounded-[16px] p-20 bg-white">
-          {searchResult.map((item: any, index: number) => (
+          {searchResult.map((item: MovieItem, index: number) => (
             <li key={index}>{item.title}</li>
           ))}
         </ul>

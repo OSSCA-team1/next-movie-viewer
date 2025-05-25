@@ -1,29 +1,40 @@
 import { Metadata } from "next";
-import InteractiveContents from "./components/InteractiveContents";
+import SearchResults from "./components/SearchResults";
 
 export const metadata: Metadata = {
   title: "OSSCA-team1 - 검색 페이지",
 };
 
+const apiKey = process.env.NEXT_PUBLIC_TMDB_DISCOVER_API_KEY;
+
 const getMoviesData = async () => {
-  const apiKey =
-    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YzhlMTE3MzBiODg2MTZhYzI5MDgwOThjMTMzNmE1NSIsIm5iZiI6MTczOTk0ODQ5OS40OTksInN1YiI6IjY3YjU4MWQzMjE1MjYzOGY1ZWUzYjE4MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fjQ0bMZHOX8s0YztcLQ0ZKfmxi3Lla-9O3y68nIYlwo";
   const response = await fetch("https://api.themoviedb.org/3/discover/movie", {
     headers: {
       Authorization: `Bearer ${apiKey}`,
     },
   });
-  const data = await response.json();
-  return data;
+
+  return await response.json();
+};
+
+const getPopularMovies = async () => {
+  const response = await fetch("https://api.themoviedb.org/3/movie/popular", {
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+    },
+  });
+
+  return await response.json();
 };
 
 export default async function SearchPage() {
-  const moviesData = await getMoviesData();
+  const moviesData = await getMoviesData(); // 영화 목록 데이터 가져오기
+  const popularMovies = await getPopularMovies(); // 인기 영화 목록 데이터 가져오기
 
   return (
     <main className="min-h-screen bg-[#121212]">
       <div className="container-1680 py-40">
-        <InteractiveContents moviesData={moviesData} />
+        <SearchResults moviesData={moviesData} popularMovies={popularMovies} />
       </div>
     </main>
   );
