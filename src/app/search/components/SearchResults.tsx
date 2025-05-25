@@ -48,7 +48,7 @@ export default function SearchResults({
       <section className="mt-60">
         {/* 인기 검색어 컨텐츠 목록 */}
         <ul className="grid grid-cols-2 gap-x-12 gap-y-20 mt-40">
-          {popularSearchContent.map((content: MovieItem, index: number) => (
+          {popularSearchContent?.map((content: MovieItem, index: number) => (
             <li className="flex items-center gap-16" key={index}>
               <span className="text-xl font-medium text-[var(--primary-color)]">
                 {index + 1}
@@ -64,7 +64,7 @@ export default function SearchResults({
         <h3 className="text-2xl font-bold text-white">검색결과</h3>
         <ul className="grid grid-cols-7 gap-x-20 gap-y-40 mt-24">
           {filteredMovies.length > 0 ? (
-            filteredMovies.map((movie: MovieItem, index: number) => (
+            filteredMovies?.map((movie: MovieItem, index: number) => (
               <li key={index}>
                 <Image
                   src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
