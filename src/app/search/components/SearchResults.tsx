@@ -4,25 +4,28 @@ import Image from "next/image";
 import SearchBar from "./searchBar";
 import { useState } from "react";
 
-export default function InteractiveContents({
+interface moviesData {
+  results: {
+    title: string;
+  }[];
+}
+
+interface PopularMovies {
+  results: {
+    title: string;
+  }[];
+}
+
+export default function SearchResults({
   moviesData,
+  popularMovies,
 }: {
-  moviesData: any;
+  moviesData: moviesData;
+  popularMovies: PopularMovies;
 }) {
   const [filteredMovies, setFilteredMovies] = useState<any[]>([]);
 
-  const popularSearchContent = [
-    { name: "진격의 거인 1기" },
-    { name: "콘클라베" },
-    { name: "최종병기 앨리스" },
-    { name: "퇴마록" },
-    { name: "강철의 연금술사 BROTHERHOOD" },
-    { name: "서브스턴스" },
-    { name: "더 루키 시즌 2" },
-    { name: "연애혁명" },
-    { name: "짱구는 못말려 4" },
-    { name: "휴먼 센티피드" },
-  ];
+  const popularSearchContent = popularMovies.results.slice(0, 10);
 
   const handleSearchResults = (results: any[], searchText?: string) => {
     if (results.length === 0 && !searchText) {
@@ -34,8 +37,6 @@ export default function InteractiveContents({
     }
   };
 
-  console.log("filteredMovies", filteredMovies.length);
-
   return (
     <>
       <SearchBar
@@ -45,13 +46,13 @@ export default function InteractiveContents({
 
       <section className="mt-60">
         {/* 인기 검색어 컨텐츠 목록 */}
-        <ul className="grid grid-cols-2 gap-x-12 gap-y-20 w-800 mt-40">
-          {popularSearchContent.map((content, index) => (
+        <ul className="grid grid-cols-2 gap-x-12 gap-y-20 mt-40">
+          {popularSearchContent.map((content: any, index: number) => (
             <li className="flex items-center gap-16" key={index}>
               <span className="text-xl font-medium text-[var(--primary-color)]">
                 {index + 1}
               </span>
-              <p className="text-xl text-white">{content.name}</p>
+              <p className="text-xl text-white">{content.title}</p>
             </li>
           ))}
         </ul>
